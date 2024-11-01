@@ -1,0 +1,22 @@
+[book]
+authors = []
+language = "en"
+multilingual = false
+title = "Penumbra Improvement Proposals (UIPs)"
+description = "The Penumbra Improvement Proposal (UIP) process and UIPs."
+theme = "theme"
+src = "uips"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/penumbra-zone/uips"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/penumbra-zone/uips/edit/main/{path}"
+cname = "uips.penumbra.zone"
+smart-punctuation = true
+theme = "theme"
+
+[output.html.fold]
+enable = true
+level = 0

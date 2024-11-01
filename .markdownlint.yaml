@@ -1,0 +1,6 @@
+"default": true # Default state for all rules
+"MD010":
+  "code_blocks": false # Disable rule for hard tabs in code blocks
+"MD013": false # Disable rule for line length
+"MD033": false # Disable rule banning inline HTML
+"MD041": false # Disable rule for first line in file
