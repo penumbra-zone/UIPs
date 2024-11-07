@@ -76,11 +76,7 @@ where `type_url` is the bytes of a variable-length Type URL defining the proto m
 
 #### Backwards Compatibility
 
-The `EffectHash` computation should be unchanged if the new `backref_commitment` field is absent.
-
-TODO: Does this work with protocol message encoding if the field is marked as `optional`?
-
-If the `EffectHash` computation include the `backref_commitment` field, then it is included in the `EffectHash` computation per the existing `proto_encode` method as described above.
+The `EffectHash` computation is unchanged if the new `backref_commitment` field is not populated. This is the behavior provided by making the field `optional` in the `SpendBody` protocol message. However, if the `backref_commitment` field is populated, then it is included in the `EffectHash` computation per the existing `proto_encode` method as described above.
 
 ### Transaction Perspectives and Views
 
