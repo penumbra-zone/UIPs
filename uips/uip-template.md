@@ -82,7 +82,15 @@ TODO: Remove the previous comments before submitting
 
 ## Security Considerations
 
-All UIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. For example, include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. UIP submissions missing the "Security Considerations" section will be rejected. An UIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.
+All UIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. For example, include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. UIP submissions missing the "Security Considerations" section will be rejected. A UIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.
+
+The current placeholder is acceptable for a draft.
+
+TODO: Remove the previous comments before submitting
+
+## Privacy Considerations
+
+All UIPs must contain a section that discusses the privacy implications/considerations relevant to the proposed change. Include information that might be important for privacy discussions, surfaces risks and can be used throughout the life cycle of the proposal. For example, include privacy-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. UIP submissions missing the "Privacy Considerations" section will be rejected. A UIP cannot proceed to status "Final" without a Privacy Considerations discussion deemed sufficient by the reviewers.
 
 The current placeholder is acceptable for a draft.
 

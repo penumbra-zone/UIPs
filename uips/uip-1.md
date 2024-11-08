@@ -287,6 +287,15 @@ the following parts:
   addressed. UIP submissions lacking a "Security Considerations" section
   will be rejected. A UIP cannot reach "Final" status without a Security
   Considerations discussion deemed sufficient by the reviewers.
+* **Privacy Considerations**: All UIPs must include a section discussing
+  relevant privacy implications and considerations. This section should
+  provide information critical for privacy discussions, expose risks, and
+  be used throughout the proposal's life-cycle. Examples include privacy-relevant
+  design decisions, concerns, significant discussions, implementation-specific
+  guidance, pitfalls, an outline of threats and risks, and how they are
+  addressed. UIP submissions lacking a "Privacy Considerations" section
+  will be rejected. A UIP cannot reach "Final" status without a Pecurity
+  Considerations discussion deemed sufficient by the reviewers.
 * **Copyright Waiver**: All UIPs must be in the public domain. The
   copyright waiver MUST link to the license file and use the following
   wording: Copyright and related rights waived via CC0.
