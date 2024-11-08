@@ -84,7 +84,7 @@ The `TransactionPerspective` and `TransactionView` will be unchanged. The backre
 
 ## Rationale
 
-ZCash has considered a similar approach wherein backwards syncing is enabled using references in the memo fields. The advantage of this approach is that DAGSync-aware clients can populate these fields without a change to the consensus rules.
+ZCash has considered a similar approach wherein backwards syncing is enabled using references encoded into the memo fields. Wallets can periodically construct transactions that stuff references to previous transaction hashes into the memo field of the dummy transaction. The advantage of the memo-stuffing approach is that DAGSync-aware clients can populate these fields without a change to the consensus rules. The disadvantage, however, is that the user's transaction history is polluted with dummy transactions, and a client must scan forward to find one of these dummy transactions before it can go backwards.
 
 ## Backwards Compatibility
 
