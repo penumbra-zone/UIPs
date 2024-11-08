@@ -1,5 +1,3 @@
-# Celestia Improvement Proposals (CIPs)
+# Penumbra (UM) Improvement Proposals (UIPs)
 
-See [/cips/README.md](./cips/README.md) for an overview of the CIP process.
-
-See the [WGs directory](./cips/wgs/README.md) for Working Groups within the CIP process.
+See [/uips/README.md](./uips/README.md) for an overview of the UIP process.
