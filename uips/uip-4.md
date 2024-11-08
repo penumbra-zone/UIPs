@@ -1,6 +1,6 @@
 # UIP: Spend Backreferences
 
-| uip | To be assigned |
+| uip | 4 |
 | - | - |
 | title | Spend Backreferences |
 | description | Spend Backreferences enable improved sync performance |
