@@ -1,13 +1,13 @@
-| cip | 2 |
-| - | - |
-| title | UIP Editor Handbook |
-| description | Handy reference for UIP editors and those who want to become one |
-| author | Henry de Valence <hdevalence@penumbralabs.xyz> |
-| discussions-to | <https://forum.celestia.org> |
-| status | Draft |
-| type | Informational |
-| created | 2024-11-01 |
-| requires | UIP-1 |
+| uip            | 2                                                                |
+| -------------- | ---------------------------------------------------------------- |
+| title          | UIP Editor Handbook                                              |
+| description    | Handy reference for UIP editors and those who want to become one |
+| author         | Henry de Valence <hdevalence@penumbralabs.xyz>                   |
+| discussions-to | <https://forum.penumbra.zone>                                    |
+| status         | Draft                                                            |
+| type           | Informational                                                    |
+| created        | 2024-11-01                                                       |
+| requires       | UIP-1                                                            |
 
 ## Abstract
 

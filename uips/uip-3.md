@@ -1,13 +1,13 @@
-| cip | 3 |
-| - | - |
-| title | Process for Approving External Resources |
-| description | Requirements and process for allowing new origins of external resources |
-| author | Henry de Valence <hdevalence@penumbralabs.xyz> |
-| discussions-to | <https://forum.celestia.org> |
-| status | Draft |
-| type | Meta |
-| created | 2024-11-01 |
-| requires | UIP-1 |
+| uip            | 3                                                                       |
+| -------------- | ----------------------------------------------------------------------- |
+| title          | Process for Approving External Resources                                |
+| description    | Requirements and process for allowing new origins of external resources |
+| author         | Henry de Valence <hdevalence@penumbralabs.xyz>                          |
+| discussions-to | <https://forum.penumbra.zone>                                           |
+| status         | Draft                                                                   |
+| type           | Meta                                                                    |
+| created        | 2024-11-01                                                              |
+| requires       | UIP-1                                                                   |
 
 ## Abstract
 

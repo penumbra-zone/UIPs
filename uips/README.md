@@ -4,17 +4,17 @@ Read [UIP-1](./uip-1.md) for information on the UIP process.
 
 ## Meetings
 
-| №  |       Date        |                          Agenda                          |                                   Notes                                   |                            Recording                            |
-|:--:|:-----------------:|:--------------------------------------------------------:|:-------------------------------------------------------------------------:|:---------------------------------------------------------------:|
-| | |  | | |
+|  №  | Date | Agenda | Notes | Recording |
+| :-: | :--: | :----: | :---: | :-------: |
+|     |      |        |       |           |
 
 ## Penumbra Improvement Proposals (UIPs)
 
-|         №         |                                    Title                                     |                                                                       Author(s)                                                                        |
-|:-----------------:|:----------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------:|
-|  [1](./uip-1.md)  |             Penumbra Improvement Proposal Process and Guidelines             |                                                             Henry de Valence <hdevalence@penumbralabs.xyz>                                                              |
-|  [2](./uip-2.md)  |                             CIP Editor Handbook                              |                                                                 Henry de Valence <hdevalence@penumbralabs.xyz>                                                                 |
-|  [3](./uip-3.md)  |                             Process for Approving External Resources         |                                                                 Henry de Valence <hdevalence@penumbralabs.xyz>                                                                 |
+|        №        |                        Title                         |                   Author(s)                    |
+| :-------------: | :--------------------------------------------------: | :--------------------------------------------: |
+| [1](./uip-1.md) | Penumbra Improvement Proposal Process and Guidelines | Henry de Valence <hdevalence@penumbralabs.xyz> |
+| [2](./uip-2.md) |                 UIP Editor Handbook                  | Henry de Valence <hdevalence@penumbralabs.xyz> |
+| [3](./uip-3.md) |       Process for Approving External Resources       | Henry de Valence <hdevalence@penumbralabs.xyz> |
 
 ## Contributing
 
