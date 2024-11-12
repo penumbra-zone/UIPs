@@ -90,7 +90,7 @@ Currently the `EffectHash` for the `Spend` action is computed as:
 
 where `type_url` is the bytes of a variable-length Type URL defining the proto message, `len(type_url)` is the length of the Type URL encoded as 8 bytes in little-endian  order, and `proto` represents the proto used to represent the effecting data, and `proto_encode` represents encoding the proto message as a vector of bytes.
 
-#### Backwards Compatibility
+#### `EffectHash` Backwards Compatibility
 
 The `EffectHash` computation is unchanged if the new `encrypted_backref` field is not populated. The `EffectHash` computation is a domain-separated hash of the Protobuf encoding of the `Spend` message. Protobuf encoding rules skip encoding default values. The new `encrypted_backref` field is a `bytes` field with a default value of an empty array, thus if it is not populated, it will be skipped, ensuring backwards compatibility.
 
@@ -114,6 +114,12 @@ This specification considered several security considerations:
 
 1. Encryption: The symmetric encryption scheme used for `encrypted_backref` uses a symmetric key derived from the OVK. Using a nonce derived from the nullifier field that is guaranteed to be unique for double-spend protection, we ensure that no duplicate (key, nonce) pairs can appear.
 2. Malleability prevention: Including `encrypted_backref` in the `EffectHash` transaction signing mechanism ensures that the field cannot be replaced by an adversary. If the field is malleable and the adversary knows the client is using DAGSync, an adversary may attempt to force clients to forget or lose funds.
+
+## Privacy Considerations
+
+Adding the `encrypted_backref` field introduces a potential distinguisher for client software based on the presence or absence of the field. The privacy leak is that the field signals whether a user has updated to a specific client version or higher, i.e. one that supports `encrypted_backref`. No other information is revealed. The privacy impact can be mitigated entirely by requiring `encrypted_backref` for all spend actions in a future protocol upgrade once there is broad client support.
+
+The design decision to include `encrypted_backref` reflects the fact that the information leakage is minor, and is justified to improve sync performance, reducing user friction and improving protocol adoption and thus the anonymity set of the network.
 
 ## Copyright
 
