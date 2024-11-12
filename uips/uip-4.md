@@ -62,10 +62,16 @@ One advantage of using a single key is that we can scan all spends using this ke
 
 A random 16-byte nonce $n$ will be generated and provided as a prefix in the `encrypted_backref` field.
 
-Encryption is performed using the $(k, n)$ tuple and outputs the 32-byte ciphertext of the 32-byte note commitment, and a 16-byte MAC. The transmitted data in the `encrypted_backref` field consists of a concatenation of the nonce, ciphertext and MAC:
+Encryption of the 32-byte note commitment $cm$ is performed using `ChaCha20-Poly1305` with the $(brk, n)$ tuple and outputs the 32-byte ciphertext $c$, and a 16-byte MAC:
 
 ```
-encrypted_backref = n || ciphertext || MAC
+(c, MAC) = ChaCha20-Poly1305(brk, n, cm)
+```
+
+The transmitted data in the `encrypted_backref` field consists of a concatenation of the nonce $n$, ciphertext $c$, and MAC:
+
+```
+encrypted_backref = n || c || MAC
 ```
 
 The `encrypted_backref` is thus 64 bytes (16 byte nonce + 32 byte ciphertext + 16 byte MAC).
