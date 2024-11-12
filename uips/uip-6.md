@@ -56,10 +56,13 @@ When migrating, PD SHOULD, in the context of an atomic migration transaction,
 - check that app version safeguard is absent, or equal to the APP_VERSION constant of the *pre-migration* version of the app crate
 - write the APP_VERSION constant of the *post-migration* version of the app crate into the `app_version_safeguard` slot.
 
+Storing the post-migration version after the migrations are performed
+will ensure that on the next start, the version will match that of PD.
+
 ## Backwards Compatability
 
 This proposal is backwards compatible, because we never assume that the safeguard value is
-pesent in the state.
+present in the state.
 
 ## Rationale
 
