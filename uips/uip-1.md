@@ -296,7 +296,7 @@ the following parts:
   addressed. UIP submissions lacking a "Privacy Considerations" section
   will be rejected. A UIP cannot reach "Final" status without a Pecurity
   Considerations discussion deemed sufficient by the reviewers.
-- **Copyright Waiver**: All UIPs must be in the public domain. The
+* **Copyright Waiver**: All UIPs must be in the public domain. The
   copyright waiver MUST link to the license file and use the following
   wording: Copyright and related rights waived via CC0.
 
@@ -312,10 +312,10 @@ markdown table.
 In order to display on the UIP site, the frontmatter must be formatted
 in a markdown table. The headers must appear in the following order:
 
-- `uip`: UIP number (this is determined by the UIP editor)
-- `title`: The UIP title is a few words, not a complete sentence
-- `description`: Description is one full (short) sentence
-- `author`: The list of the author’s or authors’ name(s) and/or
+* `uip`: UIP number (this is determined by the UIP editor)
+* `title`: The UIP title is a few words, not a complete sentence
+* `description`: Description is one full (short) sentence
+* `author`: The list of the author’s or authors’ name(s) and/or
   username(s), or name(s) and email(s). Details are below.
 * `discussions-to`: The url pointing to the official discussion thread
 * `status`: Draft, Review, Last Call, Final, Stagnant, Withdrawn, Living
