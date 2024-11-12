@@ -1,10 +1,10 @@
-| cip | 1 |
-| - | - |
-| title | Penumbra Improvement Proposal Process and Guidelines |
-| author | Henry de Valence <hdevalence@penumbralabs.xyz> |
-| status | Living |
-| type | Meta |
-| created | 2024-11-01 |
+| uip     | 1                                                    |
+| ------- | ---------------------------------------------------- |
+| title   | Penumbra Improvement Proposal Process and Guidelines |
+| author  | Henry de Valence <hdevalence@penumbralabs.xyz>       |
+| status  | Living                                               |
+| type    | Meta                                                 |
+| created | 2024-11-01                                           |
 
 ## Table of Contents
 
@@ -296,14 +296,14 @@ the following parts:
   addressed. UIP submissions lacking a "Privacy Considerations" section
   will be rejected. A UIP cannot reach "Final" status without a Pecurity
   Considerations discussion deemed sufficient by the reviewers.
-* **Copyright Waiver**: All UIPs must be in the public domain. The
+- **Copyright Waiver**: All UIPs must be in the public domain. The
   copyright waiver MUST link to the license file and use the following
   wording: Copyright and related rights waived via CC0.
 
 ## UIP Formats and Templates
 
 UIPs should be written in [markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-format. There is a [UIP template](./cip-template.md) to follow.
+format. There is a [UIP template](./uip-template.md) to follow.
 
 ## UIP Header Preamble
 
@@ -312,10 +312,10 @@ markdown table.
 In order to display on the UIP site, the frontmatter must be formatted
 in a markdown table. The headers must appear in the following order:
 
-* `cip`: UIP number (this is determined by the UIP editor)
-* `title`: The UIP title is a few words, not a complete sentence
-* `description`: Description is one full (short) sentence
-* `author`: The list of the author’s or authors’ name(s) and/or
+- `uip`: UIP number (this is determined by the UIP editor)
+- `title`: The UIP title is a few words, not a complete sentence
+- `description`: Description is one full (short) sentence
+- `author`: The list of the author’s or authors’ name(s) and/or
   username(s), or name(s) and email(s). Details are below.
 * `discussions-to`: The url pointing to the official discussion thread
 * `status`: Draft, Review, Last Call, Final, Stagnant, Withdrawn, Living
@@ -419,7 +419,7 @@ For example, you would link to this UIP as `./uip-1.md`.
 
 Images, diagrams and auxiliary files should be included in a
 subdirectory of the `assets` folder for that UIP as follows:
-`assets/cip-N` (where **N** is to be replaced with the UIP
+`assets/uip-N` (where **N** is to be replaced with the UIP
 number). When linking to an image in the UIP, use relative
 links such as `../assets/uip-1/image.png`.
 
@@ -450,7 +450,7 @@ The current UIP editors are
 * Henry de Valence ([@hdevalence](https://github.com/hdevalence))
 * Finch ([@plaidfinch](https://github.com/plaidfinch))
 
-If you would like to become a UIP editor, please check [UIP-2](./cip-2.md).
+If you would like to become a UIP editor, please check [UIP-2](./uip-2.md).
 
 ## UIP Editor Responsibilities
 
