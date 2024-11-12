@@ -29,7 +29,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The `Spend` action will be augmented with an additional field `encrypted_backref` on the `SpendBody`:
 
-```
+```protobuf
 message SpendBody {
     // A commitment to the value of the input note.
     penumbra.core.asset.v1.BalanceCommitment balance_commitment = 1;
@@ -54,15 +54,15 @@ The `encrypted_backref` should be encrypted using `ChaCha20-Poly1305`. [RFC-8349
 
 We derive a new symmetric key, the Backreference Key $brk$, from the `OutgoingViewingKey` $ovk$ using the BLAKE2b-512 hash function and personalization string `"Penumbra_Backref"`:
 
-```
-brk = BLAKE2b-512("Penumbra_Backref", ovk)
+```rust
+brk = BLAKE2b_512("Penumbra_Backref", ovk)
 ```
 
 One advantage of using a single key is that we can scan all spends using this key without having to do key derivation each time.
 
 The first 12 bytes of the nullifier `nf` on the spend is used as the nonce $n$:
 
-```
+```rust
 n = nf[:12]
 ```
 
@@ -70,17 +70,11 @@ There is a single nullifier per spend/note, thus this nonce will not repeat, sat
 
 Encryption of the 32-byte note commitment $cm$ is performed using `ChaCha20-Poly1305` with the $(brk, n)$ tuple and outputs the 32-byte ciphertext $c$ and a 16-byte MAC:
 
-```
-(c, MAC) = ChaCha20-Poly1305(brk, n, cm)
-```
-
-The transmitted data in the `encrypted_backref` field consists of a concatenation of the ciphertext $c$ and MAC:
-
-```
-encrypted_backref = c || MAC
+```rust
+(c, MAC) = ChaCha20_Poly1305(brk, n, cm)
 ```
 
-The `encrypted_backref` is thus 48 bytes (32 byte ciphertext + 16 byte MAC).
+The transmitted data in the `encrypted_backref` field consists of a concatenation of the ciphertext $c$ and MAC. The `encrypted_backref` is thus 48 bytes (32 byte ciphertext + 16 byte MAC).
 
 ### EffectHash
 
