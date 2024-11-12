@@ -13,7 +13,7 @@
 
 ## Abstract
 
-This specification introduces a method to improve Penumbra sync speeds by adding additional data that can be used by DAGSync clients. `Spend` actions will contain a new `backref_commitment` field, allowing clients to traverse their transaction graph backwards and quickly recover their entire transaction history.
+This specification introduces a method to improve Penumbra sync speeds by adding additional data that can be used by DAGSync clients. `Spend` actions will contain a new `encrypted_backref` field, allowing clients to traverse their transaction graph backwards and quickly recover their entire transaction history.
 
 ## Motivation
 
@@ -27,7 +27,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ### Modification to `SpendBody`
 
-The `Spend` action will be augmented with an additional field `backref_commitment` on the `SpendBody`:
+The `Spend` action will be augmented with an additional field `encrypted_backref` on the `SpendBody`:
 
 ```
 message SpendBody {
@@ -38,15 +38,15 @@ message SpendBody {
     // The randomized validating key for the spend authorization signature.
     penumbra.crypto.decaf377_rdsa.v1.SpendVerificationKey rk = 4;
     // NEW: An encryption of the commitment of the input note to the sender's OVK.
-    optional bytes backref_commitment = 7;
+    optional bytes encrypted_backref = 7;
 }
 ```
 
-Clients MAY populate the `backref_commitment` field with the encrypted note commitment corresponding to the note they are spending. Initially the field will be optional, allowing for a phased adoption period such that clients have time to implement support for `Spend` backreferences.
+Clients MAY populate the `encrypted_backref` field with the encrypted note commitment corresponding to the note they are spending. Initially the field will be optional, allowing for a phased adoption period such that clients have time to implement support for `Spend` backreferences.
 
 ### Encryption of Spend Backreference
 
-The `backref_commitment` should be encrypted using `ChaCha20-Poly1305`. [RFC-8349](https://datatracker.ietf.org/doc/rfc8439/) specifies that (key, nonce) pairs MUST NOT be reused.
+The `encrypted_backref` should be encrypted using `ChaCha20-Poly1305`. [RFC-8349](https://datatracker.ietf.org/doc/rfc8439/) specifies that (key, nonce) pairs MUST NOT be reused.
 
 We derive a symmetric key $k$ from the `OutgoingViewingKey` $ovk$ using the BLAKE2b-512 hash function and personalization string `"Penumbra_Backref"`:
 
@@ -56,15 +56,15 @@ k = BLAKE2b-512("Penumbra_Backref", ovk)
 
 One advantage of using a single key is that we can scan all spends using this key without having to do key derivation each time.
 
-A random 16-byte nonce $n$ will be generated and provided as a prefix in the `backref_commitment` field.
+A random 16-byte nonce $n$ will be generated and provided as a prefix in the `encrypted_backref` field.
 
-Encryption is performed using the $(k, n)$ tuple and outputs the 32-byte ciphertext of the 32-byte note commitment, and a 16-byte MAC. The transmitted data in the `backref_commitment` field consists of a concatenation of the nonce, ciphertext and MAC:
+Encryption is performed using the $(k, n)$ tuple and outputs the 32-byte ciphertext of the 32-byte note commitment, and a 16-byte MAC. The transmitted data in the `encrypted_backref` field consists of a concatenation of the nonce, ciphertext and MAC:
 
 ```
-backref_commitment = n || ciphertext || MAC
+encrypted_backref = n || ciphertext || MAC
 ```
 
-The `backref_commitment` is thus 64 bytes (16 byte nonce + 32 byte ciphertext + 16 byte MAC).
+The `encrypted_backref` is thus 64 bytes (16 byte nonce + 32 byte ciphertext + 16 byte MAC).
 
 ### EffectHash
 
@@ -76,7 +76,7 @@ where `type_url` is the bytes of a variable-length Type URL defining the proto m
 
 #### Backwards Compatibility
 
-The `EffectHash` computation is unchanged if the new `backref_commitment` field is not populated. This is the behavior provided by making the field `optional` in the `SpendBody` protocol message. However, if the `backref_commitment` field is populated, then it is included in the `EffectHash` computation per the existing `proto_encode` method as described above.
+The `EffectHash` computation is unchanged if the new `encrypted_backref` field is not populated. This is the behavior provided by making the field `optional` in the `SpendBody` protocol message. However, if the `encrypted_backref` field is populated, then it is included in the `EffectHash` computation per the existing `proto_encode` method as described above.
 
 ### Transaction Perspectives and Views
 
@@ -88,14 +88,14 @@ ZCash has considered a similar approach wherein backwards syncing is enabled usi
 
 ## Backwards Compatibility
 
-Since the `backref_commitment` field is proposed to be optional, there should be no compatibility issues. The `EffectHash` for a `Spend` will be unchanged if the `backref_commitment` field is absent. Once all clients have added `backref_commitment` support, a future UIP could make the field mandatory.
+Since the `encrypted_backref` field is proposed to be optional, there should be no compatibility issues. The `EffectHash` for a `Spend` will be unchanged if the `encrypted_backref` field is absent. Once all clients have added `encrypted_backref` support, a future UIP could make the field mandatory.
 
 ## Security Considerations
 
 This specification considered several security considerations:
 
-1. Encryption: The symmetric encryption scheme used for `backref_commitment` uses a symmetric key derived from the OVK. Using a random nonce, included as part of the ciphertext, ensures that no duplicate (key, nonce) pairs can appear. Nonces MUST not repeat to ensure this.
-2. Malleability prevention: Including `backref_commitment` in the `EffectHash` transaction signing mechanism ensures that the field cannot be replaced by an adversary. If the field is malleable and the adversary knows the client is using DAGSync, an adversary may attempt to force clients to forget or lose funds.
+1. Encryption: The symmetric encryption scheme used for `encrypted_backref` uses a symmetric key derived from the OVK. Using a random nonce, included as part of the ciphertext, ensures that no duplicate (key, nonce) pairs can appear. Nonces MUST not repeat to ensure this.
+2. Malleability prevention: Including `encrypted_backref` in the `EffectHash` transaction signing mechanism ensures that the field cannot be replaced by an adversary. If the field is malleable and the adversary knows the client is using DAGSync, an adversary may attempt to force clients to forget or lose funds.
 
 ## Copyright
 
