@@ -104,6 +104,10 @@ The `TransactionPerspective` and `TransactionView` will be unchanged. The backre
 
 ZCash has considered a similar approach wherein backwards syncing is enabled using references encoded into the memo fields. Wallets can periodically construct transactions that stuff references to previous transaction hashes into the memo field of the dummy transaction. The advantage of the memo-stuffing approach is that DAGSync-aware clients can populate these fields without a change to the consensus rules. The disadvantage, however, is that the user's transaction history is polluted with dummy transactions, and a client must scan forward to find one of these dummy transactions before it can go backwards.
 
+### Non-Unique Note Commitments
+
+Note commitments correspond to the contents of a note, not to individual note instances. If two note instances have the same exact contents, they will share the same note commitment. This requires two notes to be generated with the same `Rseed`: for honest users the `Rseed` is generated randomly, but an honest user may nevertheless receive two notes constructed with the same `Rseed`. However, the Penumbra protocol allows this possibility of duplicate note commitments, so during syncing clients should allow the possibility of selecting a note commitment that appears in multiple transaction IDs. In the rare case that the `encrypted_backref` field refers to a note commitment that is a duplicate note commitment, the client should continue syncing using each transaction ID.
+
 ## Backwards Compatibility
 
 There should be no compatibility issues since the `EffectHash` for a `Spend` will be unchanged if the `encrypted_backref` field is absent. Once all clients have added `encrypted_backref` support, a future UIP could make the field mandatory.
