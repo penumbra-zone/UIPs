@@ -6,3 +6,10 @@ cips/*.html
 
 # WGs - same note as above
 cips/wgs/**/*.html
+
+# ignore direnv; run `cp .envrc.example .envrc` to bootstrap dev tooling
+.envrc
+.direnv/
+
+# firebase for static website hosting
+.firebase/
