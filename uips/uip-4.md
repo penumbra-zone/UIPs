@@ -44,7 +44,7 @@ message SpendBody {
 
 Clients MAY populate the `encrypted_backref` field with the encrypted note commitment corresponding to the note they are spending.
 
-Transaction parsing rules MUST ensure the length of the `encrypted_backref` bytes field on a `Spend` has either 64 or zero bytes in length.
+Transaction parsing rules MUST ensure the length of the `encrypted_backref` bytes field on a `Spend` has either 48 or zero bytes in length.
 
 This allows for a phased adoption period such that clients have time to implement support for `Spend` backreferences. See the [Backwards Compatibility section](#backwards-compatibility) for further discussion.
 
@@ -60,21 +60,27 @@ brk = BLAKE2b-512("Penumbra_Backref", ovk)
 
 One advantage of using a single key is that we can scan all spends using this key without having to do key derivation each time.
 
-A random 16-byte nonce $n$ will be generated and provided as a prefix in the `encrypted_backref` field.
+The first 12 bytes of the nullifier `nf` on the spend is used as the nonce $n$:
 
-Encryption of the 32-byte note commitment $cm$ is performed using `ChaCha20-Poly1305` with the $(brk, n)$ tuple and outputs the 32-byte ciphertext $c$, and a 16-byte MAC:
+```
+n = nf[:12]
+```
+
+There is a single nullifier per spend/note, thus this nonce will not repeat, satisfying the requirement that no (key, nonce) pair be reused for encrypting different plaintexts.
+
+Encryption of the 32-byte note commitment $cm$ is performed using `ChaCha20-Poly1305` with the $(brk, n)$ tuple and outputs the 32-byte ciphertext $c$ and a 16-byte MAC:
 
 ```
 (c, MAC) = ChaCha20-Poly1305(brk, n, cm)
 ```
 
-The transmitted data in the `encrypted_backref` field consists of a concatenation of the nonce $n$, ciphertext $c$, and MAC:
+The transmitted data in the `encrypted_backref` field consists of a concatenation of the ciphertext $c$ and MAC:
 
 ```
-encrypted_backref = n || c || MAC
+encrypted_backref = c || MAC
 ```
 
-The `encrypted_backref` is thus 64 bytes (16 byte nonce + 32 byte ciphertext + 16 byte MAC).
+The `encrypted_backref` is thus 48 bytes (32 byte ciphertext + 16 byte MAC).
 
 ### EffectHash
 
@@ -88,7 +94,7 @@ where `type_url` is the bytes of a variable-length Type URL defining the proto m
 
 The `EffectHash` computation is unchanged if the new `encrypted_backref` field is not populated. The `EffectHash` computation is a domain-separated hash of the Protobuf encoding of the `Spend` message. Protobuf encoding rules skip encoding default values. The new `encrypted_backref` field is a `bytes` field with a default value of an empty array, thus if it is not populated, it will be skipped, ensuring backwards compatibility.
 
-For spends that populate a 64-byte `encrypted_backref` field, the field will be included in the `EffectHash` per the existing `proto_encode` method as described above.
+For spends that populate a 48-byte `encrypted_backref` field, the field will be included in the `EffectHash` per the existing `proto_encode` method as described above.
 
 ### Transaction Perspectives and Views
 
@@ -106,7 +112,7 @@ There should be no compatibility issues since the `EffectHash` for a `Spend` wil
 
 This specification considered several security considerations:
 
-1. Encryption: The symmetric encryption scheme used for `encrypted_backref` uses a symmetric key derived from the OVK. Using a random nonce, included as part of the ciphertext, ensures that no duplicate (key, nonce) pairs can appear. Nonces MUST not repeat to ensure this.
+1. Encryption: The symmetric encryption scheme used for `encrypted_backref` uses a symmetric key derived from the OVK. Using a nonce derived from the nullifier field that is guaranteed to be unique for double-spend protection, we ensure that no duplicate (key, nonce) pairs can appear.
 2. Malleability prevention: Including `encrypted_backref` in the `EffectHash` transaction signing mechanism ensures that the field cannot be replaced by an adversary. If the field is malleable and the adversary knows the client is using DAGSync, an adversary may attempt to force clients to forget or lose funds.
 
 ## Copyright
