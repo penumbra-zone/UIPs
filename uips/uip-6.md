@@ -9,7 +9,6 @@
 | consensus | No |
 | created | 2024-11-12 |
 
-
 ## Abstract
 
 This proposal describes a simple, backwards-compatible mechanism to safeguard node operators
@@ -44,6 +43,7 @@ to store a u64 version value, as 8 little endian bytes.
 ### Starting
 
 When starting, PD SHOULD check that the app version safeguard is either:
+
 - not present,
 - or equal to the APP_VERSION constant in the app crate.
 
@@ -52,6 +52,7 @@ Then, PD SHOULD write the APP_VERSION constant into the `app_version_safeguard` 
 ### Migrating
 
 When migrating, PD SHOULD, in the context of an atomic migration transaction,
+
 - check that app version safeguard is absent, or equal to the APP_VERSION constant of the *pre-migration* version of the app crate
 - write the APP_VERSION constant of the *post-migration* version of the app crate into the `app_version_safeguard` slot.
 
