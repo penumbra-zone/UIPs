@@ -38,11 +38,15 @@ message SpendBody {
     // The randomized validating key for the spend authorization signature.
     penumbra.crypto.decaf377_rdsa.v1.SpendVerificationKey rk = 4;
     // NEW: An encryption of the commitment of the input note to the sender's OVK.
-    optional bytes encrypted_backref = 7;
+    bytes encrypted_backref = 7;
 }
 ```
 
-Clients MAY populate the `encrypted_backref` field with the encrypted note commitment corresponding to the note they are spending. Initially the field will be optional, allowing for a phased adoption period such that clients have time to implement support for `Spend` backreferences.
+Clients MAY populate the `encrypted_backref` field with the encrypted note commitment corresponding to the note they are spending.
+
+Transaction parsing rules MUST ensure the length of the `encrypted_backref` bytes field on a `Spend` has either 64 or zero bytes in length.
+
+This allows for a phased adoption period such that clients have time to implement support for `Spend` backreferences. See the [Backwards Compatibility section](#backwards-compatibility) for further discussion.
 
 ### Encryption of Spend Backreference
 
@@ -76,7 +80,9 @@ where `type_url` is the bytes of a variable-length Type URL defining the proto m
 
 #### Backwards Compatibility
 
-The `EffectHash` computation is unchanged if the new `encrypted_backref` field is not populated. This is the behavior provided by making the field `optional` in the `SpendBody` protocol message. However, if the `encrypted_backref` field is populated, then it is included in the `EffectHash` computation per the existing `proto_encode` method as described above.
+The `EffectHash` computation is unchanged if the new `encrypted_backref` field is not populated. The `EffectHash` computation is a domain-separated hash of the Protobuf encoding of the `Spend` message. Protobuf encoding rules skip encoding default values. The new `encrypted_backref` field is a `bytes` field with a default value of an empty array, thus if it is not populated, it will be skipped, ensuring backwards compatibility.
+
+For spends that populate a 64-byte `encrypted_backref` field, the field will be included in the `EffectHash` per the existing `proto_encode` method as described above.
 
 ### Transaction Perspectives and Views
 
@@ -88,7 +94,7 @@ ZCash has considered a similar approach wherein backwards syncing is enabled usi
 
 ## Backwards Compatibility
 
-Since the `encrypted_backref` field is proposed to be optional, there should be no compatibility issues. The `EffectHash` for a `Spend` will be unchanged if the `encrypted_backref` field is absent. Once all clients have added `encrypted_backref` support, a future UIP could make the field mandatory.
+There should be no compatibility issues since the `EffectHash` for a `Spend` will be unchanged if the `encrypted_backref` field is absent. Once all clients have added `encrypted_backref` support, a future UIP could make the field mandatory.
 
 ## Security Considerations
 
