@@ -48,10 +48,10 @@ Clients MAY populate the `encrypted_backref` field with the encrypted note commi
 
 The `encrypted_backref` should be encrypted using `ChaCha20-Poly1305`. [RFC-8349](https://datatracker.ietf.org/doc/rfc8439/) specifies that (key, nonce) pairs MUST NOT be reused.
 
-We derive a symmetric key $k$ from the `OutgoingViewingKey` $ovk$ using the BLAKE2b-512 hash function and personalization string `"Penumbra_Backref"`:
+We derive a new symmetric key, the Backreference Key $brk$, from the `OutgoingViewingKey` $ovk$ using the BLAKE2b-512 hash function and personalization string `"Penumbra_Backref"`:
 
 ```
-k = BLAKE2b-512("Penumbra_Backref", ovk)
+brk = BLAKE2b-512("Penumbra_Backref", ovk)
 ```
 
 One advantage of using a single key is that we can scan all spends using this key without having to do key derivation each time.
