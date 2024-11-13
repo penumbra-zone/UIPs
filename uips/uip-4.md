@@ -48,17 +48,25 @@ Transaction parsing rules MUST ensure the length of the `encrypted_backref` byte
 
 This allows for a phased adoption period such that clients have time to implement support for `Spend` backreferences. See the [Backwards Compatibility section](#backwards-compatibility) for further discussion.
 
-### Encryption of Spend Backreference
+### Backreference Key
 
-The `encrypted_backref` should be encrypted using `ChaCha20-Poly1305`. [RFC-8349](https://datatracker.ietf.org/doc/rfc8439/) specifies that (key, nonce) pairs MUST NOT be reused.
-
-We derive a new symmetric key, the Backreference Key $brk$, from the `OutgoingViewingKey` $ovk$ using the BLAKE2b-512 hash function and personalization string `"Penumbra_Backref"`:
+We derive a new symmetric key, the _Backreference Key_ $brk$, from the `OutgoingViewingKey` $ovk$ using the BLAKE2b-512 hash function and personalization string `"Penumbra_Backref"`:
 
 ```rust
 brk = BLAKE2b_512("Penumbra_Backref", ovk)
 ```
 
-One advantage of using a single key is that we can scan all spends using this key without having to do key derivation each time.
+One advantage of using a new key is that it has a single purpose with a new capability: it can be disclosed to show the transaction graph only and provides no other information.
+
+Another advantage of using a single key is that we can scan all spends without having to do key derivation each time.
+
+For incoming scanning, for each note, we currently do Diffie-Hellman (DH) key exchange between the Incoming Viewing Key and the ephemeral public key associated with the note. This allows us to derive the key that may have been used to encrypt the note.
+
+For outgoing scanning, for each note, we first attempt to decrypt the `OvkWrappedKey` using a key derived from the `OutgoingViewingKey` and the other public fields (value commitment, note commitment, and ephemeral public key). This approach allows us to identify if the action belongs to us prior to doing DH key exchange. The same benefit of avoiding a DH key exchange is also true of scanning with the Backreference Key.
+
+### Encryption of Spend Backreference
+
+The `encrypted_backref` should be encrypted using the Backreference key $brk$ and `ChaCha20-Poly1305`. [RFC-8349](https://datatracker.ietf.org/doc/rfc8439/) specifies that (key, nonce) pairs MUST NOT be reused.
 
 The first 12 bytes of the nullifier `nf` on the spend is used as the nonce $n$:
 
