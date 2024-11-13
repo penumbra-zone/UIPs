@@ -3,7 +3,7 @@
 | title | Outbound Packet Forwarding Middleware Support |
 | description | Add configurable memo field to Ics20Withdrawal to support outbound multi-hop ICS20 transfers using Packet Forwarding Middleware |
 | author | Ava Howell |
-| discussions-to | [URL] |
+| discussions-to | https://forum.penumbra.zone/t/pre-uip-outbound-packet-forwarding-middleware-support/121 |
 | status | Draft |
 | type | Standards Track |
 | consensus | No |
@@ -105,7 +105,7 @@ fn test_ics20_withdrawal_memo() {
 
 ## Security Considerations
 
-This change does not introduce new security considerations at the IBC state machine level. The memo field is already part of the ICS20 specification, this UIP simply opens up the possibility for the user to configure its contents while building a withdrawal transaction.
+This change would add a new string field, controlled by the user, to the Ics20Withdrawal transaction. On other Cosmos chains, there have been concerns around spam related to very-long ICS20 packet memos. Penumbra's fee system charges a fee based on byte size of the transaction in transaction encoding, so that concern should be partially mitigated by that mechanism.
 
 Clients implementing PFM support should be aware of the following considerations:
 
