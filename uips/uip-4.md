@@ -50,10 +50,10 @@ This allows for a phased adoption period such that clients have time to implemen
 
 ### Backreference Key
 
-We derive a new symmetric key, the _Backreference Key_ $brk$, from the `OutgoingViewingKey` $ovk$ using the BLAKE2b-512 hash function and personalization string `"Penumbra_Backref"`:
+We derive a new symmetric key, the _Backreference Key_ $brk$, from the `OutgoingViewingKey` $ovk$ using the BLAKE2b-256 hash function and personalization string `"Penumbra_Backref"`:
 
 ```rust
-brk = BLAKE2b_512("Penumbra_Backref", ovk)
+brk = BLAKE2b_256("Penumbra_Backref", ovk)
 ```
 
 One advantage of using a new key is that it has a single purpose with a new capability: it can be disclosed to show the transaction graph only and provides no other information.
@@ -88,7 +88,7 @@ The transmitted data in the `encrypted_backref` field consists of a concatenatio
 
 Currently the `EffectHash` for the `Spend` action is computed as:
 
-`effect_hash = BLAKE2b-512(len(type_url) || type_url || proto_encode(proto))`
+`effect_hash = BLAKE2b-256(len(type_url) || type_url || proto_encode(proto))`
 
 where `type_url` is the bytes of a variable-length Type URL defining the proto message, `len(type_url)` is the length of the Type URL encoded as 8 bytes in little-endian  order, and `proto` represents the proto used to represent the effecting data, and `proto_encode` represents encoding the proto message as a vector of bytes.
 
