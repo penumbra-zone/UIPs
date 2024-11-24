@@ -15,6 +15,9 @@ Read [UIP-1](./uip-1.md) for information on the UIP process.
 | [1](./uip-1.md) | Penumbra Improvement Proposal Process and Guidelines | Henry de Valence <hdevalence@penumbralabs.xyz> |
 | [2](./uip-2.md) |                 UIP Editor Handbook                  | Henry de Valence <hdevalence@penumbralabs.xyz> |
 | [3](./uip-3.md) |       Process for Approving External Resources       | Henry de Valence <hdevalence@penumbralabs.xyz> |
+| [4](./uip-4.md) | Spend Backreferences |  Jennifer Helsby ([@redshiftzero](https://github.com/redshiftzero)), Henry de Valence ([@hdevalence](https://github.com/hdevalence)), Lúcás Meier ([@cronokirby](https://github.com/cronokirby)) |
+| [5](./uip-5.md) | Outbound Packet Forwarding Middleware Support | Ava Howell <ava@penumbralabs.xyz> |
+| [6](./uip-6.md) | App Version Safeguard | Conor Schaefer ([@conorsch](https://github.com/conorsch)), Lucas Meier ([@cronokirby](https://github.com/cronokirby)) |
 
 ## Contributing
 
