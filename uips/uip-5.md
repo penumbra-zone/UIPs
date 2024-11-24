@@ -3,7 +3,7 @@
 | title | Outbound Packet Forwarding Middleware Support |
 | description | Add configurable memo field to Ics20Withdrawal to support outbound multi-hop ICS20 transfers using Packet Forwarding Middleware |
 | author | Ava Howell |
-| discussions-to | https://forum.penumbra.zone/t/pre-uip-outbound-packet-forwarding-middleware-support/121 |
+| discussions-to | [Penumbra Forum](https://forum.penumbra.zone/t/pre-uip-outbound-packet-forwarding-middleware-support/121) |
 | status | Draft |
 | type | Standards Track |
 | consensus | No |
@@ -64,6 +64,7 @@ impl From<Ics20Withdrawal> for pb::FungibleTokenPacketData {
 ```
 
 The `ics20_memo` field:
+
 - MAY contain any valid UTF-8 string
 - MAY be empty
 
@@ -75,7 +76,6 @@ There are two major parts of Packet Forwarding Middleware support:
 - Packet Forwarding Middleware support: the actual forwarding middleware implementation, which runs in the chain's state machine and allows the chain to forward packets sent from other chains.
 
 This UIP implements (1), using a minimal protocol change (adding the configurable memo field). This gives the majority of end-user benefit from PFM support, notably that users can experience superior UX in withdrawing from the Penumbra chain, while avoiding complex protocol development work and assurance. A separate UIP for implementing (2) in the Penumbra IBC stack could be considered in the future.
-
 
 ## Backwards Compatibility
 
