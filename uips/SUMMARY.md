@@ -7,6 +7,7 @@
   - [UIP-2](./uip-2.md)
   - [UIP-3](./uip-3.md)
   - [UIP-4](./uip-4.md)
+  - [UIP-5](./uip-5.md)
   - [UIP-6](./uip-6.md)
 
 # UIP template

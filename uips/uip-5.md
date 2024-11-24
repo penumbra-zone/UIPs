@@ -3,7 +3,7 @@
 | title | Outbound Packet Forwarding Middleware Support |
 | description | Add configurable memo field to Ics20Withdrawal to support outbound multi-hop ICS20 transfers using Packet Forwarding Middleware |
 | author | Ava Howell |
-| discussions-to | [Penumbra Forum](https://forum.penumbra.zone/t/pre-uip-outbound-packet-forwarding-middleware-support/121) |
+| discussions-to | <https://forum.penumbra.zone/t/pre-uip-outbound-packet-forwarding-middleware-support/121> |
 | status | Draft |
 | type | Standards Track |
 | consensus | No |
