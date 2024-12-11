@@ -137,17 +137,14 @@ This is accepted since the probability is astronomically low, $1/2^{128}$.
 
 ## Test Cases
 
-TK
+Transparent address:
+`tpenumbra1y6k3hlmtf26w3hnwfka9wn28enytp5g0pd783ahqcradfx4qmy9qnxvspz`
+Full Penumbra address:
+`penumbra17fzq5lwdls9dsmy0j5kj7ega4vrcpgayvw5e7fxedkmhkuft2zy04ug8z80r9tcptq8xxt8nm0qcvpf6u3cgxdjl22zsu2x09rglwftj5rlup2lj584lvlw6t3sxdvsmk9vfly`
 
 ## Security Considerations
 
-TK
-
-All UIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. For example, include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. UIP submissions missing the "Security Considerations" section will be rejected. A UIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.
-
-The current placeholder is acceptable for a draft.
-
-TODO: Remove the previous comments before submitting
+The primary implication of this change are the privacy concerns of transparent addresses, discussed in the section below.
 
 ## Privacy Considerations
 
