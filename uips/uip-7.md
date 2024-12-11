@@ -75,6 +75,17 @@ default account:
 
 Transparent addresses are incompatible with the FMD feature of the Penumbra protocol, which enables a user to delegate a probabalistic detection capability to a third party. This is considered acceptable since other scanning improvements such as Spend Backreferences will make FMD less important for efficient transaction detection.
 
+### Changes to `Ics20Withdrawal` Action
+
+The `Ics20Withdrawal` action is modified to:
+
+1. Add a new boolean field `use_transparent_address`
+2. Deprecate the existing `use_compat_address` field
+
+When the `use_transparent_address` field is true:
+* The `return_address` field MUST be set to the transparent address.
+* The `use_compat_address` field MUST be set to false.
+
 ## Rationale
 
 The design prioritizes:
