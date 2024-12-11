@@ -45,7 +45,7 @@ This diversified basepoint is used to to derive the transmission key $pk_d$:
 
 $pk_d = [ivk] B_d$
 
-The new address format, the *transparent address*, consists only of the 32 byte transmission key. It is encoded using the `tpenumbra` human-readable prefix.
+The new address format, the _transparent address_, consists only of the 32 byte transmission key. It is encoded using the `tpenumbra` human-readable prefix.
 
 The transmission key for the transparent address is derived using the diversifier
 corresponding to all zero bytes. Note that during scanning, the wallet scans
@@ -80,17 +80,20 @@ Transparent addresses are incompatible with the FMD feature of the Penumbra prot
 The `Ics20Withdrawal` action is modified to:
 
 1. Add a new boolean field `use_transparent_address`
+
 2. Deprecate the existing `use_compat_address` field
 
 When the `use_transparent_address` field is true:
+
 * The `return_address` field MUST be set to the transparent address.
-* The `use_compat_address` field MUST be set to false.
 
 ## Rationale
 
 The design prioritizes:
 1. Maximum external compatibility through fixed-size 32-byte addresses
+
 2. Seamless conversion to full Penumbra addresses
+
 3. Minimal changes to the core protocol
 
 The tradeoff of having only one transparent address per wallet is
