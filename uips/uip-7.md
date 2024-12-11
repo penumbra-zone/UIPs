@@ -57,6 +57,20 @@ corresponding to all zero bytes. Note that during scanning, the wallet scans
 for incoming messages using the Incoming Viewing Key (IVK), and thus detects
 all messages for all transmission keys corresponding to that IVK.
 
+### Generation
+
+We define the diversifier $d_0$ for the transparent address to be the zero ciphertext `[0u8; 16]`.
+
+We derive the diversified basepoint $B_{d_0}$ using decaf377 hash-to-group $H_{\mathbb{G}}^{d}$:
+
+$B_{d_0} = H_{\mathbb{G}}^{d_0}​(d_0)$
+
+The Incoming Viewing Key $ivk$ and diversified basepoint $B_{d_0}$ are used to derive the transmission key $pk_{d_0}$:
+
+$pk_{d_0} = [ivk] B_{d_0}$
+
+This 32-byte transmission key $pk_{d_0}$ is then encoded with Bech32 with the `tpenumbra` human-readable prefix.
+
 ### Transparent Address Decoding Rules
 
 When decoding a transparent address to its full Penumbra address:
@@ -100,6 +114,7 @@ When the `use_transparent_address` field is true:
 ## Rationale
 
 The design prioritizes:
+
 1. Maximum external compatibility through fixed-size 32-byte addresses
 
 2. Seamless conversion to full Penumbra addresses
