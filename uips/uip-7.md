@@ -63,12 +63,12 @@ When decoding a transparent address to its full Penumbra address:
 
 The diversifier decryption is modified as follows:
 
-The null ciphertext [0u8; 16] is defined to correspond to the address index
+The zero ciphertext `[0u8; 16]` is defined to correspond to the address index
 corresponding to the default account index 0, with no randomizer.
 
 The implications of this are that there are two valid diversifiers for the
 default account:
-* The null ciphertext [0u8; 16]
+* The zero ciphertext (`[0u8; 16]`)
 * The ciphertext of the 0 address index
 
 ### Fuzzy Message Detection (FMD)
