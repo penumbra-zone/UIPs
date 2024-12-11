@@ -17,8 +17,10 @@ This UIP introduces transparent addresses ("t-addresses"), a 32-byte Bech32 addr
 
 Recent compatibility issues with external systems (e.g., Noble's USDC integration) have highlighted the need for a maximally compatible address format. While the correct long-term solution is full support for Penumbra's native addresses, a shorter address format can serve as an immediate solution and future-proof escape hatch for similar issues. Penumbra's native addresses have two major differences from most other addresses in the Cosmos ecosystem, in that:
 
-1. They are longer: 144 bytes.
+1. They are longer: 80 bytes of data (144 bytes encoded).
 2. They use Bech32m encoding, instead of Bech32.
+
+Transparent addresses are 32 bytes long, and use Bech32 encoding for maximum compatibility with external systems.
 
 ## Specification
 
@@ -44,7 +46,7 @@ consists of:
 The diversifier $d$ is then used to derive the diversified basepoint $B_d$ using
 decaf377 hash-to-group $H_{\mathbb{G}}^{d}$:
 
-$B_d = H_{\mathbb{G}}^{d}​(d)$
+$B_d = H_{\mathbb{G}}^{d}(d)$
 
 This diversified basepoint is used to to derive the transmission key $pk_d$:
 
@@ -88,12 +90,14 @@ The diversifier decryption is modified as follows:
 The zero ciphertext `[0u8; 16]` is defined to correspond to the address index
 corresponding to the default account index 0, with no randomizer.
 
-The implications of this are that there are two valid diversifiers for the
-default account:
+The implications of this are that the valid diversifiers for the
+default account are:
 
-* The zero ciphertext (`[0u8; 16]`)
+* 1 special case diversifier: the zero ciphertext (`[0u8; 16]`)
 
-* The ciphertext of the 0 address index
+* $2^{96}$ diversifiers that normally decrypt to the address index for the default account, i.e. those that have the first four bytes equal to `[0u8; 4]` and any randomizer
+
+Note that if a null diversifier happened by chance - as the encryption of some address index $a$ - it will in the future be interpreted as the address index for the default account 0 instead of $a$. The probability of this event is astronomically low, $1/2^{128}$.
 
 ### Fuzzy Message Detection (FMD)
 
