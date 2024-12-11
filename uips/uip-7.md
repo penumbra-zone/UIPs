@@ -114,6 +114,7 @@ The `Ics20Withdrawal` action is modified to:
 When the `use_transparent_address` field is true:
 
 * Clients MUST set the `return_address` field to the transparent address.
+* During transaction validation, the diversifier $d$ MUST be set to the zero ciphertext `[0u8; 16]` and the clue key $ck_d$ MUST be set to the identity element.
 
 ## Rationale
 
