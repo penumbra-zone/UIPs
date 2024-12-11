@@ -52,9 +52,9 @@ corresponding to all zero bytes. Note that during scanning, the wallet scans
 for incoming messages using the Incoming Viewing Key (IVK), and thus detects
 all messages for all transmission keys corresponding to that IVK.
 
-### Transparent Address Conversion Rules
+### Transparent Address Decoding Rules
 
-When converting a transparent address to a full Penumbra address:
+When decoding a transparent address to its full Penumbra address:
 1. The diversifier MUST be set to 16 zero bytes
 2. The transmission key MUST be set to the transmission key of the transparent address
 3. The clue key MUST be set to the identity element
