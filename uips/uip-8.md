@@ -1,4 +1,4 @@
-| uip | 007 |
+| uip | 008 |
 | - | - |
 | title | Transparent Addresses for External Compatibility |
 | description | A 32-byte address format for improved interoperability with external systems |
