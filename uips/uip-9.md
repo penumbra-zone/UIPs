@@ -143,7 +143,7 @@ This design maintains backward compatibility while allowing gradual adoption of 
 
 **Transaction Perspective and Views**
 
-To support viewing decrypted metadata, client implementations will need to extend the `TransactionPerspective` with the appropriate key material. We defer the full specification to a follow-up client-side UIP, but outline the approach here:
+To support viewing decrypted metadata, client implementations will need to extend the `TransactionPerspective` with the appropriate key material.
 
 1. Add the `PositionMetadataKey` to `TransactionPerspective`
 2. Extend the `PositionOpenView` to support two variants:
