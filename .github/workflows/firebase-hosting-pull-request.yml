@@ -15,9 +15,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: install nix
-        uses: DeterminateSystems/nix-installer-action@main
-      - name: load nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
+        uses: nixbuild/nix-quick-install-action@v28
+      - name: setup nix cache
+        uses: nix-community/cache-nix-action@v5
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
 
       - name: run linters
         run: nix develop --command just lint
@@ -32,9 +35,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: install nix
-        uses: DeterminateSystems/nix-installer-action@main
-      - name: load nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
+        uses: nixbuild/nix-quick-install-action@v28
+      - name: setup nix cache
+        uses: nix-community/cache-nix-action@v5
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
 
       - name: build static docroot
         run: nix develop --command just build
