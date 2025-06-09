@@ -4,8 +4,8 @@
 | - | - |
 | title | Encrypted Position metadata |
 | description | Adds contextual information about bundles of positions |
-| author | Erwan Or ([@erwanor](https://github.com/erwanor)), Lúcás Meier ([@cronokirby](https://github.com/cronokirby))
-| discussions-to | https://forum.penumbra.zone/t/uip-encrypted-lp-metadata/185 |
+| author | Erwan Or ([@erwanor](https://github.com/erwanor)), Lúcás Meier ([@cronokirby](https://github.com/cronokirby)) |
+| discussions-to | [https://forum.penumbra.zone/t/uip-encrypted-lp-metadata/185](https://forum.penumbra.zone/t/uip-encrypted-lp-metadata/185) |
 | status | Draft |
 | type | Standards Track |
 | consensus | [Yes/No] |
@@ -38,7 +38,7 @@ This design permits a single subaccount to manage up to 2^32 - 1 distinct bundle
 
 Note that supporting larger numbers of bundles is unnecessary, as users can generate arbitrary numbers of subaccounts to organize positions when needed.
 
-**Protobuf definition**
+### Protobuf definition
 
 ```protobuf
 // Metadata about a position, or bundle of positions.
@@ -62,7 +62,6 @@ Strategy and identifiers are user-scoped: they are interpreted only by the holde
 To allow distinguisability between bundles, clients SHOULD select identifiers uniformly at random. To ensure the metadata is valid, clients MUST specify non-zero values for both `strategy` and `id`.
 
 To prevent metadata size leakage, clients MUST ensure that the serialized PositionMetadata is exactly 10 bytes or absent. See transaction parsing rules for more details.
-
 
 ### Modifications to the `PositionOpen` action
 
@@ -88,14 +87,13 @@ To prevent information leakage through the size of the metadata, transaction val
 
 We define a symmetric key `PositionMetadataKey` derived from the user's outgoing viewing key using a personalization string for our domain-separated hash construction:
 
-```
+```text
 pmk := BLAKE2b_256("Penumbra_PosMeta", ovk)
 ```
 
 This follows the pattern used by the `BackreferenceKey` in [UIP-4](https://uips.penumbra.zone/uip-4.html#backreference-key), and other symmetric key usage in the protocol.
 
 ### Metadata encryption
-
 
 We employ authenticated encryption using XChaCha20-Poly1305 as specified in [RFC8439](https://datatracker.ietf.org/doc/rfc8439/), with the following parameters:
 
@@ -105,30 +103,34 @@ We employ authenticated encryption using XChaCha20-Poly1305 as specified in [RFC
 - Plaintext: The serialized `PositionMetadata` (10 bytes)
 
 The encryption operation produces:
-```
+
+```text
 (ciphertext, auth_tag) = XChaCha20_Poly1305_Encrypt(pmk, nonce, metadata)
 ```
 
 The `encrypted_metadata` field is then constructed as:
-```
+
+```text
 encrypted_metadata = nonce || ciphertext || auth_tag
 ```
 
 Clients SHOULD use the last 24 bytes of the associated position's id.
 
-```
+```text
 nonce := Blake2b_256(Position)[8..]
 ```
+
 Clients MAY use random nonces if separation of concerns between `Position` nonces and metadata nonces is preferred.
 
 ### Backwards compatibility
+
 This UIP builds on the compatibility framework established in UIP-4, using the `EffectHash` mechanism to ensure consistency across client versions.
 
 #### Effect hash construction
 
 The `EffectHash` of a transaction action binds to both its type and serialized content:
 
-```
+```text
 effect_hash = BLAKE2b-256(len(type_url) || type_url || proto_encode(proto))
 ```
 
@@ -141,7 +143,7 @@ The `encrypted_metadata` field is added as an optional field to the `PositionOpe
 
 This design maintains backward compatibility while allowing gradual adoption of the metadata feature.
 
-**Transaction Perspective and Views**
+### Transaction Perspective and Views
 
 To support viewing decrypted metadata, client implementations will need to extend the `TransactionPerspective` with the appropriate key material.
 
@@ -151,7 +153,6 @@ To support viewing decrypted metadata, client implementations will need to exten
    - A view with opaque metadata when the key is unavailable
 
 This extension can be implemented in client software without requiring chain-level consensus changes.
-
 
 ## Security considerations
 
@@ -180,7 +181,6 @@ A future protocol upgrade should address this by requiring all `PositionOpen` ac
 Our design ensures that encrypted metadata has a fixed size of exactly 50 bytes when present. This prevents information leakage through size side channels - an observer cannot distinguish between different types of strategies or bundle identifiers based on the size of the encrypted data.
 
 The combination of authenticated encryption and fixed-size ciphertext ensures that no information about the position metadata is leaked to anyone without access to the position creator's outgoing viewing key.
-
 
 ## Copyright
 
