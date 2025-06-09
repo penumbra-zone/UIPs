@@ -101,7 +101,7 @@ Note that if a null diversifier happened by chance - as the encryption of some a
 
 ### Fuzzy Message Detection (FMD)
 
-Transparent addresses are incompatible with the FMD feature of the Penumbra protocol, which enables a user to delegate a probabalistic detection capability to a third party. This is considered acceptable since other scanning improvements such as Spend Backreferences result in clients not needing to detect every transaction. Using Spend Backreferences, clients can efficiently reconstruct their entire transaction history from a single transaction, and are expected primarily to be using shielded Penumbra addresses instead of transparent addresses.
+Transparent addresses are incompatible with the FMD feature of the Penumbra protocol, which enables a user to delegate a probabilistic detection capability to a third party. This is considered acceptable since other scanning improvements such as Spend Backreferences result in clients not needing to detect every transaction. Using Spend Backreferences, clients can efficiently reconstruct their entire transaction history from a single transaction, and are expected primarily to be using shielded Penumbra addresses instead of transparent addresses.
 
 ### Changes to `Ics20Withdrawal` Action
 
