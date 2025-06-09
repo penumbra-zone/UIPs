@@ -19,6 +19,7 @@ jobs:
         with:
           primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-
+          backend: buildjet
 
       - name: build static docroot
         run: nix develop --command just build
